@@ -7,9 +7,8 @@ use JMS\Serializer\Handler\HandlerRegistryInterface;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\Form\Forms;
-use Symfony\Component\Form\FormView;
 
-class FormViewHandlerTest extends \PHPUnit_Framework_TestCase
+class FormViewXmlHandlerTest extends \PHPUnit_Framework_TestCase
 {
     public function test()
     {

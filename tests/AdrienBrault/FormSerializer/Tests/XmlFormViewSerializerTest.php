@@ -379,6 +379,25 @@ XML
             , $formElement);
     }
 
+    public function testPrototype()
+    {
+        $formFactory = Forms::createFormFactoryBuilder()->getFormFactory();
+        $form = $formFactory
+            ->createBuilder('form')
+            ->add('name', 'collection', array('type' => 'text', 'allow_add' => true))
+            ->getForm()
+        ;
+
+        $xmlFormViewSerializer = new XmlFormViewSerializer();
+        $xmlFormViewSerializer->serialize($form->createView(), $formElement = $this->createFormElement());
+        $this->assertXmlElementEquals(<<<XML
+<form>
+    <prototype name="form[name]" required="required" data-prototype="&lt;input type=&quot;text&quot; name=&quot;form[name][__name__]&quot; required=&quot;required&quot;/&gt;"/>
+</form>
+XML
+            , $formElement);
+    }
+
     protected function assertXmlElementEquals($expectedString, \DOMElement $element)
     {
         $elementString = $element->ownerDocument->saveXML($element);

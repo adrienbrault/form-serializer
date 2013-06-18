@@ -161,7 +161,7 @@ class XmlFormViewSerializer implements XmlFormViewSerializerInterface
         return $variables['compound']
             ? $this->serializeWidgetCompound($parentElement, $view, $variables)
             : $this->serializeWidgetSimple($parentElement, $view, $variables)
-            ;
+        ;
     }
 
     /*
@@ -459,6 +459,12 @@ class XmlFormViewSerializer implements XmlFormViewSerializerInterface
         $this->serializeFormRows($parentElement, $view, $variables);
 
         $this->serializeBlock($parentElement, $variables['form'], 'rest');
+
+        if (count($view->children) == 0 && isset($variables['attr']['data-prototype'])) {
+            $element = $parentElement->ownerDocument->createElement('prototype');
+            $this->addWidgetAttributes($element, $view, $variables);
+            $parentElement->appendChild($element);
+        }
     }
 
     /*
@@ -482,11 +488,12 @@ class XmlFormViewSerializer implements XmlFormViewSerializerInterface
     protected function serializeCollectionWidget(\DOMElement $parentElement, FormView $view, $variables)
     {
         if (isset($variables['prototype'])) {
-            // TODO test this ?
-            var_dump($variables['prototype']);exit;
+            $document = new \DOMDocument('1.0', 'UTF-8');
+            $documentRoot = $document->createElement('foo');
+            $this->serializeFormRow($documentRoot, $variables['prototype'], array());
             $variables['attr'] = array_merge($variables['attr'], array(
-                    'data-prototype' => $this->renderer->searchAndRenderBlock($variables['prototype'], 'row'),
-                ));
+                'data-prototype' => $document->saveXML($documentRoot->firstChild),
+            ));
         }
 
         $this->serializeFormWidget($parentElement, $view, $variables);

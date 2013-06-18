@@ -8,7 +8,7 @@ use Symfony\Component\Form\Extension\Core\View\ChoiceView;
 /**
  * @author Adrien Brault <adrien.brault@gmail.com>
  */
-class XmlFormViewSerializer
+class XmlFormViewSerializer implements XmlFormViewSerializerInterface
 {
     protected static $baseTypes = array(
         'text', 'textarea', 'email', 'integer', 'money', 'number', 'password', 'percent', 'search', 'url', 'hidden',
@@ -16,8 +16,7 @@ class XmlFormViewSerializer
     );
 
     /**
-     * @param FormView    $formView
-     * @param \DOMElement $formElement
+     * {@inheritdoc}
      */
     public function serialize(FormView $formView, \DOMElement $formElement)
     {

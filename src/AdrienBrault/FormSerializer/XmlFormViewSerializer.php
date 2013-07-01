@@ -238,7 +238,8 @@ class XmlFormViewSerializer implements XmlFormViewSerializerInterface
     */
     protected function serializeTextareaWidget(\DOMElement $parentElement, FormView $view, $variables)
     {
-        $textareaElement = $parentElement->ownerDocument->createElement('textarea', $variables['value']);
+        $textareaElement = $parentElement->ownerDocument->createElement('textarea');
+        $textareaElement->appendChild($parentElement->ownerDocument->createCDATASection($variables['value']));
         $parentElement->appendChild($textareaElement);
 
         $this->addWidgetAttributes($textareaElement, $view, $variables);

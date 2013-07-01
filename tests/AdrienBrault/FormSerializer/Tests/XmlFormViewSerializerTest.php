@@ -47,7 +47,7 @@ class XmlFormViewSerializerTest extends \PHPUnit_Framework_TestCase
         $form->setData(array(
                 'towns' => array('par' => 'Paris', 'lon' => 'London'),
                 'public' => true,
-                'description' => 'Desc',
+                'description' => '<div>Desc</div>',
             ));
 
         $formView = $form->createView();
@@ -59,7 +59,7 @@ class XmlFormViewSerializerTest extends \PHPUnit_Framework_TestCase
         $this->assertXmlElementEquals(<<<XML
 <form>
     <input type="text" name="form[name]" required="required"/>
-    <textarea name="form[description]" required="required">Desc</textarea>
+    <textarea name="form[description]" required="required"><![CDATA[<div>Desc</div>]]></textarea>
     <input type="email" name="form[email]" required="required"/>
     <input type="integer" name="form[age]" required="required"/>
     <input type="number" name="form[height]" required="required"/>

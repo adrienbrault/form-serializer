@@ -28,7 +28,7 @@ class FormViewXmlHandlerTest extends \PHPUnit_Framework_TestCase
         $xml = $serializer->serialize($form->createView(), 'xml');
         $this->assertEquals(<<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<form>
+<form action="" method="POST">
   <input type="text" name="form[name]" required="required"/>
 </form>
 

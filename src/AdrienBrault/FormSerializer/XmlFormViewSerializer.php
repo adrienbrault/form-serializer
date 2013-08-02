@@ -26,6 +26,14 @@ class XmlFormViewSerializer implements XmlFormViewSerializerInterface
             $formElement->setAttribute('enctype', 'multipart/form-data');
         }
 
+        if (isset($formView->vars['action'])) {
+            $formElement->setAttribute('action', $formView->vars['action']);
+        }
+
+        if (isset($formView->vars['method'])) {
+            $formElement->setAttribute('method', $formView->vars['method']);
+        }
+
         if (isset($formView->vars['attr'])) {
             foreach ($formView->vars['attr'] as $name => $value) {
                 $formElement->setAttribute($name, $value);

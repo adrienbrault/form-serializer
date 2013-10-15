@@ -57,7 +57,7 @@ class XmlFormViewSerializerTest extends \PHPUnit_Framework_TestCase
         $xmlFormViewSerializer->serialize($formView, $formElement = $this->createFormElement());
 
         $this->assertXmlElementEquals(<<<XML
-<form action="/target" method="PUT">
+<form method="PUT" action="/target">
     <input type="text" name="form[name]" required="required"/>
     <textarea name="form[description]" required="required"><![CDATA[<div>Desc</div>]]></textarea>
     <input type="email" name="form[email]" required="required"/>
@@ -96,7 +96,7 @@ XML
         $xmlFormViewSerializer->serialize($formView, $formElement = $this->createFormElement());
 
         $this->assertXmlElementEquals(<<<XML
-<form enctype="multipart/form-data" action="" method="POST">
+<form enctype="multipart/form-data" method="POST" action="">
     <input type="file" name="form[avatar]" required="required"/>
 </form>
 XML
@@ -132,7 +132,7 @@ XML
         $xmlFormViewSerializer->serialize($formView, $formElement = $this->createFormElement());
 
         $this->assertXmlElementEquals(<<<XML
-<form action="" method="POST">
+<form method="POST" action="">
     <select name="form[publishedAt][year]" required="required">
         <option value="2008">2008</option>
         <option value="2009">2009</option>
@@ -372,7 +372,7 @@ XML
         $xmlFormViewSerializer->serialize($formView, $formElement = $this->createFormElement());
 
         $this->assertXmlElementEquals(<<<XML
-<form action="http://localhost/hey" method="POST" rel="create">
+<form method="POST" action="http://localhost/hey" rel="create">
     <input type="text" name="form[name]" required="required"/>
 </form>
 XML
@@ -391,7 +391,7 @@ XML
         $xmlFormViewSerializer = new XmlFormViewSerializer();
         $xmlFormViewSerializer->serialize($form->createView(), $formElement = $this->createFormElement());
         $this->assertXmlElementEquals(<<<XML
-<form action="" method="POST">
+<form method="POST" action="">
     <prototype name="form[name]" required="required" data-prototype="&lt;input type=&quot;text&quot; name=&quot;form[name][__name__]&quot; required=&quot;required&quot;/&gt;"/>
 </form>
 XML

@@ -1,0 +1,22 @@
+parameters:
+    adrien_brault_form_serializer.form_serializer.class: AdrienBrault\FormSerializer\XmlFormViewSerializer
+    adrien_brault_form_serializer.serializer.form_view_xml_handler.class: AdrienBrault\FormSerializer\FormViewXmlHandler
+    adrien_brault_form_serializer.serializer.form_view_json_null_handler.class: AdrienBrault\FormSerializer\FormViewNullJsonHandler
+
+services:
+    adrien_brault_form_serializer.form_serializer:
+        class: %adrien_brault_form_serializer.form_serializer.class%
+
+    adrien_brault_form_serializer.serializer.form_view_xml_handler:
+        class: %adrien_brault_form_serializer.serializer.form_view_xml_handler.class%
+        arguments:
+            - @adrien_brault_form_serializer.form_serializer
+        tags:
+            - { name: jms_serializer.subscribing_handler }
+
+    adrien_brault_form_serializer.serializer.form_view_json_null_handler:
+        class: %adrien_brault_form_serializer.serializer.form_view_json_null_handler.class%
+        arguments:
+            - @adrien_brault_form_serializer.form_serializer
+        tags:
+            - { name: jms_serializer.subscribing_handler }
